@@ -14,6 +14,8 @@ const MAX_PARALLEL = process.env.MAX_PARALLEL || 5;
 const MAX_CHUNK_SIZE = process.env.MAX_CHUNK_SIZE || 3000;
 const INPUT_FILE = process.env.INPUT_FILE || argv[2] || './input.txt';
 const OUTPUT_FILE = process.env.OUTPUT_FILE || argv[3] || './output.mp3';
+const PRICE_PER_CHARACTER = 0.015 / 1000 // See https://openai.com/pricing
+
 
 const main = async () => {
     const inputText = await fs.readFile(INPUT_FILE, 'utf-8');
@@ -24,7 +26,7 @@ const main = async () => {
         overlap: 0,
     });
 
-    console.log(`Splitting into ${chunks.length} chunks`);
+    console.log(`Splitting into ${chunks.length} chunks. Total length: ${inputText.length}, estimated cost ${(inputText.length * PRICE_PER_CHARACTER).toFixed(3)} USD`);
     // Ask before starting
     console.log('Press any key to continue');
     await new Promise(resolve => process.stdin.once('data', resolve));
