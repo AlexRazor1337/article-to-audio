@@ -36,6 +36,8 @@ Before using this tool, ensure you have the following:
    ```env
    OPENAI_API_KEY=your-api-key
    ```
+   
+   Other optional parameters can be added to the `.env` file. See the [Configuration](#configuration) section for details.
 
 ## Usage
 
@@ -57,7 +59,7 @@ Before using this tool, ensure you have the following:
 
 ## Configuration
 
-You can customize the following parameters in the `index.js` file:
+You can customize the following parameters in the `.env` file:
 
 - `MAX_PARALLEL`: The maximum number of chunks to process simultaneously.
 - `MAX_CHUNK_SIZE`: The maximum size of each chunk in characters.
