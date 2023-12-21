@@ -9,7 +9,7 @@ Before using this tool, ensure you have the following:
 - Node.js installed on your machine
 - OpenAI API key
 - ffmpeg installed on your machine (for merging audio files)
-- A text file (`input.txt`) containing the text you want to convert to speech
+- A text file containing the text you want to convert to speech
 
 ## Setup
 
@@ -41,7 +41,7 @@ Before using this tool, ensure you have the following:
 
 ## Usage
 
-1. Place the text you want to convert in a file named `input.txt` in the project root.
+1. Place the text you want to convert in a file named `input.txt` in the project root **or** pass it as first argument **or** set it in `.env` file.
 
 2. Run the tool:
 
@@ -53,17 +53,21 @@ Before using this tool, ensure you have the following:
 
 4. The tool will create an `audio` folder in the project directory and generate individual audio files for each chunk.
 
-5. After processing all chunks, the tool will merge the audio files into a single output file named `output.mp3`.
+5. After processing all chunks, the tool will merge the audio files into a single output file named `output.mp3` or what you have specified as second argument or `.env` file.
 
-6. Once the merging is complete, the intermediate audio files will be deleted, leaving only the `output.mp3` file.
+6. Once the merging is complete, the intermediate audio files will be deleted, leaving only the output file.
 
 ## Configuration
 
 You can customize the following parameters in the `.env` file:
 
-- `MAX_PARALLEL`: The maximum number of chunks to process simultaneously.
-- `MAX_CHUNK_SIZE`: The maximum size of each chunk in characters.
-- Other OpenAI TTS parameters (e.g., `model` and `voice`) can be adjusted in the `tts` function.
+- `MAX_PARALLEL`: The maximum number of chunks to process simultaneously. Defaults to `5`.
+- `MAX_CHUNK_SIZE`: The maximum size of each chunk in characters. Defaults to `3000`.
+- `TTS_MODEL`: [TTS model](https://platform.openai.com/docs/guides/text-to-speech) to use. Defaults to `tts-1`.
+- `TTS_VOICE`: TTS voice to use. Defaults to `echo`.
+- `INPUT_FILE`: Name of the input file. Defaults to `input.txt`.
+- `OUTPUT_FILE`: Name of the output file. Defaults to `output.mp3`.
+
 
 ## Disclaimer
 
