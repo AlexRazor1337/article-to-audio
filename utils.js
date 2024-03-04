@@ -18,13 +18,24 @@ export const writeAudioFile = async (fileName, mp3Audio) => {
     return fs.writeFile(speechFile, buffer);   
 }
 
-export const processChunk = async (chunkContent, fileName, spinner) => {
+const processChunk = async (chunkContent, fileName, spinner) => {
     spinner.start(`Processing ${fileName}`);
 
     const mp3Audio = await tts(chunkContent, fileName)
-    const result = await writeAudioFile(fileName, mp3Audio);
+    await writeAudioFile(fileName, mp3Audio);
 
     spinner.succeed(`Finished processing ${fileName}`);
 
-    return result;
+    return fileName;
+}
+
+export const processChunkWithRetry = async (chunkContent, fileName, spinner, retries = 3) => {
+    try {
+        return await processChunk(chunkContent, fileName, spinner);
+    } catch (err) {
+        if (retries === 0) throw err;
+        console.error(err);
+        spinner.fail(`Failed processing ${fileName}, retrying`);
+        return await processChunkWithRetry(chunkContent, fileName, spinner, retries - 1);
+    }
 }
