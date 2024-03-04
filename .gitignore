@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 input.txt
-output.mp3
+*.mp3
